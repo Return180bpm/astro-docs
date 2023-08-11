@@ -9,6 +9,113 @@ i18nReady: false
 import PackageManagerTabs from '~/components/tabs/PackageManagerTabs.astro'
 import FileTree from '~/components/FileTree.astro';
 
+## regex tests
+### [example 2](https://github.com/withastro/docs/blob/main/contributor-guides/writing-and-style-guide.md#example-2)
+
+* also: discrepancy between `props.social` and `props.socialLinks`?
+
+```astro /{props.(title|socialLinks)}/ ins="<Button />"
+// src/components/MySidebar.jsx
+
+---
+import Button from "Button.astro"
+
+---
+
+<h1>
+{props.title}
+</h2>
+some text
+<Button />
+
+{props.socialLinks}
+
+```
+
+**result**
+It highlights something, but only `title` and `socialLinks` not the whole `{props.title}` as stated in our guide.
+
+### `{item}`
+
+```astro /{item}/
+--
+const item = 'foo'
+--
+
+<h1>
+it's a day {item}
+</h1>
+<p>
+{item}
+<p>
+```
+
+**Result**
+Seems to work!
+
+### del="My blog title"
+
+```astro del="My blog title"
+--
+const title = "My blog title"
+const title = import.meta.env.BLOG_TITLE
+--
+
+<h1>
+{title}
+</h1>
+<p>
+"My blog title"
+<p>
+```
+
+**Result**
+Seems to work! Although I kind of expected it to highlight the quotes as well
+
+### ins="Astro.props"
+
+```astro ins="Astro.props"
+--
+const props = Astro.props
+--
+
+<h1>
+{title}
+</h1>
+<p>
+"My blog title"
+<p>
+```
+
+**Result**
+Seems to work! Although I kind of expected it to highlight the quotes as well
+
+### `/{frontmatter.(title|description)}/`
+
+```astro /{frontmatter.(title|description)}/
+--
+const title = frontmatter.title
+const description = frontmatter.description
+--
+
+<h1>
+{title}
+{frontmatter.title}
+</h1>
+<p>
+{description}
+{frontmatter.description}
+
+<p>
+```
+
+**Result**
+It works. I have a better understanding of the syntax now after I worked through the examples systematically like this. But only then :). 
+
+---
+
+
+
 [Builder.io](https://www.builder.io/) is a visual CMS that supports drag-and-drop content editing for building websites. 
 
 This recipe will show you how to connect your Builder space to Astro with zero client-side JavaScript.
